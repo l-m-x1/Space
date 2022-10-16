@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="./css/iconfont.css">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script src="js/vue.js"></script>
+    <script src="element-ui/lib/index.js"></script>
+    <link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
+    <script src="js/axios-0.18.0.js"></script>
+    <link rel="stylesheet" href="css/navigationBar.css">
+    <link rel="stylesheet" href="css/leftColumn.css">
+    <style>
+        #in{
+            top: 20px;
+            position: relative;
+        }
+        #button1{
+            left: 20px;
+            position: relative;
+        }
+        #button2{
+            left: 40px;
+            position: relative;
+        }
+        #date{
+
+
+        }
+    </style>
+</head>
+<body>
+
+<div id="navigationBar">
+
+</div>
+
+<div class="row">
+    <div class="leftcolumn">
+
+
+    </div>
+    <div class="rightcolumn">
+        <div id="app">
+            <el-form id="date" ref="form" :model="form" label-width="80px">
+                <el-row >
+                    <span id="button1" class="demonstration"><i class="el-icon-edit"></i>写日志</span>
+                    <el-button id="button2" type="info" @click="back" plain>返回日志列表</el-button>
+                </el-row>
+                <hr>
+                <el-form :model="SetLog" :rules="rules"  id="in" ref="SetLog" label-width="100px" class="demo-SetLog">
+                    <el-form-item label="日志标题" prop="name">
+                        <el-input v-model="SetLog.name" placeholder="请输入标题"></el-input>
+                    </el-form-item>
+                    <el-form-item label="日志内容" prop="text">
+                        <el-input
+                                type="textarea"
+                                :autosize="{ minRows: 6, maxRows: 100}"
+                                placeholder="请输入内容"
+                                v-model="SetLog.text">
+                        </el-input>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button type="primary" @click="submitForm('SetLog')">确认发表</el-button>
+                        <el-button @click="resetForm('SetLog')">清空</el-button>
+                    </el-form-item>
+
+                </el-form>
+            </el-form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script>
+
+    $("#navigationBar").load("./navigationBar.html");
+    $(".leftcolumn").load("./leftColumn.html");
+
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                SetLog: {
+                    name: '',
+                    text: ''
+                },
+                rules: {
+                    name: [
+                        { required: true, message: '请填写标题', trigger: 'blur' }
+                    ],
+                    text: [
+                        { required: true, message: '请填写内容', trigger: 'blur' }
+                    ]
+                }
+            };
+        },
+        methods: {
+            back:function () {
+                this.$confirm('是否返回日志界面，未提交的内容将被清空?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    window.location.href="viewlog.html";
+                }).catch(() => {
+                });
+                //返回日志界面
+            },
+            submitForm(formName) {
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        this.$confirm('是否发表内容?', '提示', {
+                            confirmButtonText: '确定',
+                            cancelButtonText: '取消',
+                            type: 'warning'
+                        }).then(() => {
+                            axios({
+                                method:"post",
+                                url:"/Diary/setLog",//目标地址,
+                                data:{
+                                    diary:this.SetLog
+                                }
+                            }).then(function (resp) {
+                                if(resp.data=="success"){
+                                    window.location.reload()
+                                }
+                            })
+                            window.location.href="viewlog.html";
+                        }).catch(() => {
+                        });
+                    } else {
+                        alert('提交失败!');
+                        return false;
+                    }
+                });
+            },
+            resetForm(formName) {
+                this.$confirm('是否清空内容?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.$refs[formName].resetFields();
+                }).catch(() => {
+                });
+            }
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        html {
+            background:white;
+        }
+        #title{
+            left: 20px;
+            position: relative;
+            font-size: 20px;
+        }
+        #Permission{
+            margin-left: 20%;
+            width: 60%;
+            display: inline-block;
+        }
+        #return{
+            position: relative;
+            left: 60px;
+        }
+    </style>
+
+</head>
+<body>
+
+<div id="app">
+    <el-form id="Permission"  label-width="80px">
+        <el-row >
+            <span id="title" class="demonstration">权限管理</span>
+            <el-button id="return" icon="el-icon-caret-left" @click="returnSubmit">返回主页</el-button>
+        </el-row>
+        <template>
+            <hr>
+            <el-table
+                    :data="PermissionData"
+                    style="width: 100%"
+                    height="300">
+                <el-table-column
+                        prop="name"
+                        label="姓名">
+                </el-table-column>
+                <el-table-column
+                        prop="account"
+                        label="账号">
+                </el-table-column>
+                <el-table-column
+                        prop="permission"
+                        label="是否允许他/她进入我的空间">
+                    <template slot-scope="scope">
+                        <!-- scope.row 可以取到当前一行的数据 -->
+                        <el-switch v-model="scope.row.permission"
+                                   @change="onSubmit(scope.row.account)"
+                                   active-text="允许"
+                                   inactive-text="不允许"
+                                   :active-value=yes
+                                   inactive-value=no>
+                        </el-switch>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </template>
+    </el-form>
+</div>
+
+<script src="js/vue.js"></script>
+<script src="element-ui/lib/index.js"></script>
+<script src="js/axios-0.18.0.js"></script>
+<link rel="stylesheet" href="element-ui/lib/theme-chalk/index.css">
+
+<script>
+
+    new Vue({
+        el: '#app',
+        mounted(){
+            axios({
+                method:"get",
+                url:"/Access/getAllAccess"
+            }).then(resp=>{
+                this.PermissionData=resp.data;
+            })
+        },
+        data() {
+            return {
+                yes:1,
+                no:0,
+                PermissionData: [{
+                    name:'',
+                    account:'',
+                    permission: ''
+                }
+                   ]
+            };
+        },
+        methods: {
+            returnSubmit(){
+                this.$confirm('是否确认返回主页?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    window.location.href="MyFeed.html";
+                }).catch(() => {
+                });
+            },
+            onSubmit(message) {
+                console.log('submit!');
+                axios({
+                    method:"post",
+                    url:"/Access/setAccess",//地址
+                    data:{account:message}
+                }).then(resp=> {
+                    if(resp.data=="success"){
+                        //成功后的反应
+                    }
+                })
+                window.location.reload();
+            }
+        }
+    })
+
+</script>
+
+</body>
+</html>

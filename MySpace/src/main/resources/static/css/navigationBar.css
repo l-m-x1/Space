@@ -1,0 +1,188 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+        padding-left: 8%;
+        padding-right: 8%;
+        background-color: #DCE2F1;
+        /*opacity: 0.5;*/
+        padding-bottom: 100px;
+}
+
+.topNav {
+    list-style-type: none;
+    margin-left: 7%;
+    overflow: hidden;
+    background-color: #FCFCFC;
+    position: fixed;
+    top: -15px;
+    width: 70%;
+    /*border-radius: 5px;*/
+    /*border: 5px solid deepskyblue;*/
+    z-index: 1;
+
+}
+
+.topNav li {
+    float: left;
+    margin-right: 10px;
+    margin-top:2px;
+    margin-bottom: 2px;
+
+}
+
+.topNav li a {
+    display: block;
+    color: #303133;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.topNav li a:hover{
+    color: dodgerblue;
+}
+
+
+
+
+
+.midNav {
+    list-style-type: none;
+    padding-top: 150px;
+    padding-left: 300px;
+    padding-right: 100px;
+
+    overflow: hidden;
+
+}
+
+.midNav li {
+    float: left;
+    border-radius:40px;
+    /*border: 3px solid deepskyblue;*/
+    /*margin-right: 5px;*/
+}
+
+.midNav li a {
+    display: block;
+    color: #000000;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    width: 100px;
+}
+
+
+.midNav li a:hover{
+    color: #3a8ee6;
+}
+
+
+
+
+/* 创建两个不相等的彼此并排的浮动列 */
+
+
+
+.card {
+    background: #909399;
+}
+/* 右列 */
+.rightcolumn {
+    float: left;
+    width: 75%;
+    background-color: rgba(252, 225, 179, 0.27);
+
+    padding: 20px 30px;
+    /*border: 5px solid deepskyblue;*/
+    /*border-radius: 10px;*/
+
+}
+
+
+/* 清除列之后的浮动 */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+
+
+#friendList {
+    display: none;
+    position: fixed;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    margin-left: 19%;
+    margin-top: 3%;
+    max-height: 50%;
+    width: 26%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    z-index: 2;
+}
+
+#decoration {
+    display: none;
+    position: fixed;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    margin-left: 39%;
+    margin-top: 3%;
+    z-index: 1;
+    width: 250px;
+    height: auto;
+    z-index: 2;
+}
+
+#decorationText {
+    width: 100%;
+    margin-top: 5%;
+    margin-bottom:5% ;
+    text-align: center;
+
+}
+.decorationColor {
+    width: 60px;
+    height: 60px;
+    float: left;
+    margin: 10px;
+
+}
+
+.decorationColor:hover {
+    cursor: pointer;
+    border: #3a8ee6 solid 1px;
+}
+
+#setting {
+    list-style-type: none;
+    display: none;
+    position: fixed;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    margin-left: 69%;
+    margin-top: 3%;
+    z-index: 1;
+
+}
+
+#setting li a {
+    display: block;
+    color: #303133;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+#setting li a:hover{
+    color: dodgerblue;
+}
+
+.item {
+    margin-top: 10px;
+    margin-right: 40px;
+}
