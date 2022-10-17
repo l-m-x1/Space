@@ -13,44 +13,29 @@ import java.util.List;
 
 public class AddFriServiceImpl implements AddFriService {
 
-//    SqlSessionFactory factory = SqlSessionFactoryUtils.getSqlSessionFactory();
     @Autowired
     AddFriDao addFriDao;
     @Override
     public void insert(AddFriMsg addFriMsg) {
-
-
-
-
-        SqlSession session = factory.openSession();
-        AddFriMapper mapper = session.getMapper(AddFriMapper.class);
-        mapper.insert(addFriMsg);
-        session.commit();
-        session.close();
+        addFriDao.insert(addFriMsg);
     }
 
     @Override
     public void delete(AddFriMsg addFriMsg) {
-        SqlSession session = factory.openSession();
-        AddFriMapper mapper = session.getMapper(AddFriMapper.class);
-        mapper.delete(addFriMsg);
-        session.commit();
-        session.close();
+
+        addFriDao.delete(addFriMsg);
 
     }
 
     @Override
     public List<AddFriMsg> selectByTo(Integer msg_to) {
-        SqlSession session = factory.openSession();
-        AddFriMapper mapper = session.getMapper(AddFriMapper.class);
-        return mapper.selectByTo(msg_to);
+
+        return addFriDao.selectByTo(msg_to);
     }
 
     @Override
     public AddFriMsg selectSingle(AddFriMsg addFriMsg) {
-        SqlSession session = factory.openSession();
-        AddFriMapper mapper = session.getMapper(AddFriMapper.class);
-        return mapper.selectSingle(addFriMsg);
+        return addFriDao.selectSingle(addFriMsg);
     }
 
 }

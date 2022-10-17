@@ -1,59 +1,49 @@
 package com.space.service.impl;
 
-import com.space.mapper.FriendsMapper;
-import com.space.pojo.Friends;
+import com.space.dao.FriendsDao;
+import com.space.domain.Friends;
+
 import com.space.service.FriendsService;
-import com.space.util.SqlSessionFactoryUtils;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
+
 
 import java.util.List;
 
 public class FriendsServiceImpl implements FriendsService {
-    SqlSessionFactory factory= SqlSessionFactoryUtils.getSqlSessionFactory();
+
+
+    FriendsDao friendsDao;
     @Override
     public void insert(Friends friends) {
-        SqlSession session = factory.openSession();
-        FriendsMapper mapper = session.getMapper(FriendsMapper.class);
-        mapper.insert(friends);
-        session.commit();
-        session.close();
+
+
+        friendsDao.insert(friends);
     }
 
     @Override
     public void delete(Friends friends) {
-        SqlSession session = factory.openSession();
-        FriendsMapper mapper = session.getMapper(FriendsMapper.class);
-        mapper.delete(friends);
-        session.commit();
-        session.close();
+
+
+        friendsDao.delete(friends);
     }
 
     @Override
     public void update(Friends friends) {
-        SqlSession session = factory.openSession();
-        FriendsMapper mapper = session.getMapper(FriendsMapper.class);
-        mapper.update(friends);
-        session.commit();
-        session.close();
+
+
+        friendsDao.update(friends);
     }
 
     @Override
     public List<Friends> selectById(Integer id) {
-        SqlSession session = factory.openSession();
-        FriendsMapper mapper = session.getMapper(FriendsMapper.class);
-        List<Friends> friends = mapper.selectById(id);
-        session.commit();
-        session.close();
-        return friends;
+
+        return friendsDao.selectById(id);
     }
 
     @Override
     public Friends selectAccess(Friends friends) {
-        SqlSession session = factory.openSession();
-        FriendsMapper mapper = session.getMapper(FriendsMapper.class);
-        Friends friends1 = mapper.selectAccess(friends);
-        return friends1;
+
+
+        return friendsDao.selectAccess(friends);
 
     }
 }

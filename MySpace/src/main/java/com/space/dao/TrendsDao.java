@@ -5,7 +5,7 @@ import com.space.domain.Trends;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
-
+@Mapper
 public interface TrendsDao {
 
     @Select("select * from trends")

@@ -1,96 +1,79 @@
 package com.space.service.impl;
 
-import com.space.mapper.TrendsMapper;
-import com.space.pojo.Trends;
+import com.space.dao.TrendsDao;
+import com.space.domain.Trends;
+
 import com.space.service.TrendsService;
-import com.space.util.SqlSessionFactoryUtils;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 public class TrendsServiceImpl implements TrendsService {
 
-    SqlSessionFactory factory= SqlSessionFactoryUtils.getSqlSessionFactory();
+    @Autowired
+    TrendsDao trendsDao;
 
     @Override
     public List<Trends> selectAll() {
-        SqlSession session = factory.openSession();
-        TrendsMapper mapper = session.getMapper(TrendsMapper.class);
-        List<Trends> trends = mapper.selectAll();
-        session.close();
-        return trends;
+
+
+        return trendsDao.selectAll();
     }
 
     @Override
     public Trends selectById(Integer id) {
-        SqlSession session = factory.openSession();
-        TrendsMapper mapper = session.getMapper(TrendsMapper.class);
-        Trends trends = mapper.selectById(id);
-        session.close();
-        return trends;
+
+
+        return trendsDao.selectById(id);
     }
 
     @Override
     public List<Trends> selectByUid(Integer uid) {
-        SqlSession session = factory.openSession();
-        TrendsMapper mapper = session.getMapper(TrendsMapper.class);
-        List<Trends> trends = mapper.selectByUid(uid);
-        session.close();
-        return trends;
+
+
+        return trendsDao.selectByUid(uid);
     }
 
     @Override
     public void insert(Trends trends) {
-        SqlSession session = factory.openSession();
-        TrendsMapper mapper = session.getMapper(TrendsMapper.class);
-        mapper.insert(trends);
-        session.commit();
-        session.close();
+
+
+        trendsDao.insert(trends);
     }
 
     @Override
     public void deleteById(Integer id) {
-        SqlSession session = factory.openSession();
-        TrendsMapper mapper = session.getMapper(TrendsMapper.class);
-        mapper.deleteById(id);
-        session.commit();
-        session.close();
+
+
+        trendsDao.deleteById(id);
     }
 
     @Override
     public void deleteByUid(Integer uid) {
-        SqlSession session = factory.openSession();
-        TrendsMapper mapper = session.getMapper(TrendsMapper.class);
-        mapper.deleteByUid(uid);
-        session.commit();
-        session.close();
+
+
+        trendsDao.deleteByUid(uid);
     }
 
     @Override
     public void updateLikes(Integer id, Integer likes) {
-        SqlSession session = factory.openSession();
-        TrendsMapper mapper = session.getMapper(TrendsMapper.class);
-        mapper.updateLikes(id,likes);
-        session.commit();
-        session.close();
+
+
+        trendsDao.updateLikes(id, likes);
     }
 
     @Override
     public List<Trends> selectByUids(int[] uids) {
-        SqlSession session = factory.openSession();
-        TrendsMapper mapper = session.getMapper(TrendsMapper.class);
-        List<Trends> trends = mapper.selectByUids(uids);
-        session.close();
-        return trends;
+
+
+        return trendsDao.selectByUids(uids);
     }
 
     @Override
     public void updateContent(Integer id, String content) {
-        SqlSession session = factory.openSession();
-        TrendsMapper mapper = session.getMapper(TrendsMapper.class);
-        mapper.updateContent(id,content);
-        session.commit();
-        session.close();
+
+
+        trendsDao.updateContent(id, content);
     }
 }

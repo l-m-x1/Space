@@ -2,13 +2,11 @@ package com.space.dao;
 
 import com.space.domain.Friends;
 
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
+import javax.annotation.ManagedBean;
 import java.util.List;
-
+@Mapper
 public interface FriendsDao {
     @Insert("insert into friends values (#{id},#{fid},#{access})")
     void insert(Friends friends);

@@ -5,7 +5,7 @@ import com.space.domain.Style;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
-
+@Mapper
 public interface StyleDao {
 
     @Select("select * from style")

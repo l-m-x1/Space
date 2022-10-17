@@ -1,17 +1,20 @@
 package com.space.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.space.pojo.Info;
-import com.space.pojo.User;
+import com.space.domain.Info;
+import com.space.domain.User;
+
 import com.space.service.InfoService;
 import com.space.service.impl.InfoServiceImpl;
 import com.space.service.impl.UserServiceImpl;
-import com.space.web.BaseServlet;
+
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.IOUtils;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.annotation.WebServlet;
 import java.io.FileOutputStream;
@@ -23,8 +26,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-@WebServlet("/Info/*")
 
+@RestController
+@RequestMapping("/Info/*")
 public class InfoServlet extends BaseServlet {
     public void getInfo() throws IOException {
         Integer id = (Integer) req.getSession().getAttribute("id");

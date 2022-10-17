@@ -3,10 +3,11 @@ package com.space.dao;
 
 import com.space.domain.Photos;
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
-
+@Mapper
 public interface PhotosDao {
 
     @Select("select * from photos")

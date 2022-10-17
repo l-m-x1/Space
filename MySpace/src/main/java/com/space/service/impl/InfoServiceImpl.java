@@ -1,48 +1,40 @@
 package com.space.service.impl;
 
-import com.space.mapper.InfoMapper;
-import com.space.pojo.Info;
+
+import com.space.dao.InfoDao;
+import com.space.domain.Info;
 import com.space.service.InfoService;
-import com.space.util.SqlSessionFactoryUtils;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class InfoServiceImpl implements InfoService {
-    SqlSessionFactory factory= SqlSessionFactoryUtils.getSqlSessionFactory();
+
+    @Autowired
+    InfoDao infoDao;
+
     @Override
     public void insert(Info info) {
-        SqlSession session = factory.openSession();
-        InfoMapper mapper = session.getMapper(InfoMapper.class);
-        mapper.insert(info);
-        session.commit();
-        session.close();
+
+        infoDao.insert(info);
     }
 
     @Override
     public void delete(Integer id) {
-        SqlSession session = factory.openSession();
-        InfoMapper mapper = session.getMapper(InfoMapper.class);
-        mapper.delete(id);
-        session.commit();
-        session.close();
+
+        infoDao.delete(id);
     }
 
     @Override
     public void update(Info info) {
-        SqlSession session = factory.openSession();
-        InfoMapper mapper = session.getMapper(InfoMapper.class);
-        mapper.update(info);
-        session.commit();
-        session.close();
+        infoDao.update(info);
     }
 
     @Override
     public Info selectById(Integer id) {
-        SqlSession session = factory.openSession();
-        InfoMapper mapper = session.getMapper(InfoMapper.class);
-        Info info = mapper.selectById(id);
-        session.commit();
-        session.close();
-        return info;
+
+
+        return infoDao.selectById(id);
     }
 }

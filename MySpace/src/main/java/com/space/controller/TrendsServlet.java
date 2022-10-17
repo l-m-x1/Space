@@ -1,14 +1,17 @@
 package com.space.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.space.pojo.Friends;
-import com.space.pojo.Trends;
-import com.space.pojo.User;
+
+import com.space.domain.Friends;
+import com.space.domain.Trends;
+import com.space.domain.User;
 import com.space.service.TrendsService;
 import com.space.service.impl.FriendsServiceImpl;
 import com.space.service.impl.TrendsServiceImpl;
 import com.space.service.impl.UserServiceImpl;
-import com.space.web.BaseServlet;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpSession;
@@ -17,8 +20,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-@WebServlet( "/Trends/*")
+@RestController
+@RequestMapping( "/Trends/*")
 public class TrendsServlet extends BaseServlet {
     class Ret{
         Integer id;

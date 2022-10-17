@@ -3,9 +3,11 @@ package com.space.dao;
 import com.space.domain.MsgBoard;
 
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
+@Mapper
 
     public interface MsgBoardDao {
         @Select("select *from msg_board")

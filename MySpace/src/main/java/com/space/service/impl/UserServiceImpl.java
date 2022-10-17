@@ -1,94 +1,76 @@
 package com.space.service.impl;
 
-import com.space.mapper.UserMapper;
-import com.space.pojo.User;
+import com.space.dao.UserDao;
+import com.space.domain.User;
+
 import com.space.service.UserService;
-import com.space.util.SqlSessionFactoryUtils;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
-    SqlSessionFactory factory=SqlSessionFactoryUtils.getSqlSessionFactory();
+    @Autowired
+    UserDao userDao;
     @Override
     public List<User> selectAll() {
-        SqlSession session = factory.openSession();
-        UserMapper mapper = session.getMapper(UserMapper.class);
-        List<User> users = mapper.selectAll();
-        //System.out.println(users);
-        session.close();
-        return users;
+
+
+        return userDao.selectAll();
     }
 
     @Override
     public void insert(User user) {
-        SqlSession session = factory.openSession();
-        UserMapper mapper = session.getMapper(UserMapper.class);
-        mapper.insert(user);
-        session.commit();
-        session.close();
+
+
+        userDao.insert(user);
     }
 
     @Override
     public User selectById(Integer id) {
-        SqlSession session = factory.openSession();
-        UserMapper mapper = session.getMapper(UserMapper.class);
-        User user = mapper.selectById(id);
-        session.commit();
-        session.close();
-        return user;
+
+        return userDao.selectById(id);
     }
 
     @Override
     public void deleteById(Integer id) {
-        SqlSession session = factory.openSession();
-        UserMapper mapper = session.getMapper(UserMapper.class);
-        mapper.deleteById(id);
-        session.commit();
-        session.close();
+
+
+        userDao.deleteById(id);
     }
 
     @Override
     public void updateUsername(Integer id,String username) {
-        SqlSession session = factory.openSession();
-        UserMapper mapper = session.getMapper(UserMapper.class);
-        mapper.updateUsername(id,username);
-        session.commit();
-        session.close();
+
+
+        userDao.updateUsername(id, username);
     }
 
     @Override
     public void updatePassword(Integer id, String password) {
-        SqlSession session = factory.openSession();
-        UserMapper mapper = session.getMapper(UserMapper.class);
-        mapper.updateUsername(id,password);
-        session.commit();
-        session.close();
+
+
+        userDao.updatePassword(id, password);
     }
 
     @Override
     public User select(Integer id, String password) {
-        SqlSession session = factory.openSession();
-        UserMapper mapper = session.getMapper(UserMapper.class);
-        User user = mapper.select(id, password);
-        session.close();
-        return user;
+
+
+        return userDao.select(id, password);
     }
 
     @Override
     public Integer getMaxId() {
-        SqlSession session = factory.openSession();
-        UserMapper mapper = session.getMapper(UserMapper.class);
-        return mapper.getMaxId();
+
+
+        return userDao.getMaxId();
     }
 
     @Override
     public void updateAvatar(Integer id, String avatar) {
-        SqlSession session = factory.openSession();
-        UserMapper mapper = session.getMapper(UserMapper.class);
-        mapper.updateAvatar(id,avatar);
-        session.commit();
-        session.close();
+
+
+        userDao.updateAvatar(id,avatar);
     }
 }

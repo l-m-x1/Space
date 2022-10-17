@@ -1,15 +1,20 @@
 package com.space.controller;
 
-import com.space.pojo.User;
+import com.space.domain.User;
+
 import com.space.service.UserService;
 import com.space.service.impl.UserServiceImpl;
-import com.space.web.BaseServlet;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet("/Login/*")
+
+@RestController
+@RequestMapping("/Login/*")
 public class LoginServlet extends BaseServlet {
 
     public void login() throws IOException {

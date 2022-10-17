@@ -2,17 +2,20 @@ package com.space.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
-import com.space.pojo.Photos;
-import com.space.pojo.User;
+import com.space.domain.Photos;
+import com.space.domain.User;
+
 import com.space.service.PhotosService;
 import com.space.service.impl.PhotosServiceImpl;
 import com.space.service.impl.UserServiceImpl;
-import com.space.web.BaseServlet;
+
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.IOUtils;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.annotation.WebServlet;
 import java.io.File;
@@ -25,7 +28,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-@WebServlet("/Photos/*")
+
+@RestController
+@RequestMapping("/Photos/*")
 public class PhotosServlet extends BaseServlet {
 
 

@@ -2,11 +2,15 @@ package com.space.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.space.pojo.Diary;
+import com.space.domain.Diary;
+
 import com.space.service.DiaryService;
 import com.space.service.impl.DiaryServiceImpl;
-import com.space.web.BaseServlet;
+
 import org.apache.commons.io.IOUtils;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
@@ -16,11 +20,14 @@ import java.util.Date;
 import java.util.List;
 
 
-@WebServlet("/Diary/*")
+
+@RestController
+@RequestMapping("/Diary/*")
 public class DiaryServlet extends BaseServlet {
 
 
     public void setLog(){
+        init();
 
         Integer uid=(Integer)req.getSession().getAttribute("id");
         Diary diary = new Diary();
@@ -39,12 +46,14 @@ public class DiaryServlet extends BaseServlet {
 
 
     public void deleteLogs() throws IOException {
+        init();
         Integer id= Integer.valueOf(IOUtils.toString(req.getInputStream()));
         DiaryServiceImpl diaryService = new DiaryServiceImpl();
         diaryService.delete(id);
     }
 
     public void modifyLogs() throws IOException {
+        init();
         String contentType = req.getContentType();
         System.out.println(contentType);
         String s = IOUtils.toString(req.getInputStream());
@@ -59,6 +68,7 @@ public class DiaryServlet extends BaseServlet {
         diaryService.update(diary);
     }
     public void viewLogs() throws IOException {
+        init();
 
         class ret{
             public Integer id;

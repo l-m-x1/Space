@@ -1,13 +1,15 @@
 package com.space.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.space.pojo.MsgBoard;
-import com.space.pojo.User;
+import com.space.domain.MsgBoard;
+
+import com.space.domain.User;
 import com.space.service.MsgBoardService;
 import com.space.service.UserService;
 import com.space.service.impl.MsgBoardServiceImpl;
 import com.space.service.impl.UserServiceImpl;
-import com.space.web.BaseServlet;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpSession;
@@ -17,7 +19,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@WebServlet("/MsgBoard/*")
+
+@RestController
+@RequestMapping("/MsgBoard/*")
 public class MsgBoardServlet extends BaseServlet {
 
     MsgBoardService msgBoardService=new MsgBoardServiceImpl();
