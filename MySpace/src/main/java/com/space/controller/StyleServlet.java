@@ -5,6 +5,7 @@ import com.space.domain.Style;
 
 import com.space.service.StyleService;
 import com.space.service.impl.StyleServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,9 +17,13 @@ import java.io.IOException;
 @RequestMapping( "/Style/*")
 public class StyleServlet extends BaseServlet {
 
-    StyleService styleService=new StyleServiceImpl();
+
+
+    @Autowired
+    StyleService styleService;
 
     public void show() throws IOException {
+           
         HttpSession session=req.getSession();
         Integer uid = (Integer) session.getAttribute("id");
         Style styles = styleService.selectByUid(uid);
@@ -28,6 +33,7 @@ public class StyleServlet extends BaseServlet {
     }
 
     public void updateType(){
+           
         HttpSession session=req.getSession();
         Integer uid = (Integer) session.getAttribute("id");
         String type=jsonObject.getString("type");

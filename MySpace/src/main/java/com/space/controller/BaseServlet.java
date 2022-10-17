@@ -25,6 +25,7 @@ public class BaseServlet {
 
     protected JSONObject jsonObject;
 
+@RequestMapping("/*")
     public void init(){
         String contentType = req.getContentType();
         System.out.println(contentType+"13");

@@ -6,9 +6,10 @@ import com.space.domain.Trends;
 import com.space.service.TrendsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class TrendsServiceImpl implements TrendsService {
 
     @Autowired

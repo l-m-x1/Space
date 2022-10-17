@@ -6,6 +6,7 @@ import com.space.domain.Photos;
 import com.space.domain.User;
 
 import com.space.service.PhotosService;
+import com.space.service.UserService;
 import com.space.service.impl.PhotosServiceImpl;
 import com.space.service.impl.UserServiceImpl;
 
@@ -14,6 +15,7 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.IOUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,11 +36,15 @@ import java.util.UUID;
 public class PhotosServlet extends BaseServlet {
 
 
-
+    @Autowired
+    PhotosService photosService;
+    @Autowired
+    UserService userService;
     public void upload() throws IOException {
+           
         Integer id = (Integer) req.getSession().getAttribute("id");
 //        Integer id=1;
-        PhotosService photosService = new PhotosServiceImpl();
+
 
 
         DiskFileItemFactory diskFileItemFactory = new DiskFileItemFactory();
@@ -75,10 +81,11 @@ public class PhotosServlet extends BaseServlet {
     }
 
     public void getPhotos() throws IOException {
+           
 //        System.out.println("getPhotos");
         Integer uid= (Integer) req.getSession().getAttribute("id");
 //        Integer uid=1;
-        PhotosService photosService = new PhotosServiceImpl();
+
         List<Photos> photos = photosService.selectByUid(uid);
 
         class ret{
@@ -125,18 +132,20 @@ public class PhotosServlet extends BaseServlet {
     }
 
     public void getAvatar() throws IOException {
+           
         Integer uid=1;
-        UserServiceImpl userService = new UserServiceImpl();
+
         User user = userService.selectById(uid);
         resp.setContentType("text/json;charset=utf-8");
         resp.getWriter().write(user.getAvatar());
     }
 
     public void deletePhotos(){
+           
 //        Integer id = (Integer) req.getSession().getAttribute("id");
 //        id=1;
         JSONArray deletes = jsonObject.getJSONArray("checkList");
-        PhotosServiceImpl photosService = new PhotosServiceImpl();
+
 
         for(Object delete:deletes){
             int id = Integer.parseInt(delete.toString());

@@ -5,3 +5,6 @@ spring:
     username: user0
     password: 123456
     type: com.alibaba.druid.pool.DruidDataSource
+
+server:
+  port: 80

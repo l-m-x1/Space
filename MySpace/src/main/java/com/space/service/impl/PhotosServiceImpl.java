@@ -6,9 +6,10 @@ import com.space.domain.Photos;
 import com.space.service.PhotosService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class PhotosServiceImpl implements PhotosService {
     @Autowired
     PhotosDao photosDao;

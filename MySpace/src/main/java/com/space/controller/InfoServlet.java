@@ -5,6 +5,7 @@ import com.space.domain.Info;
 import com.space.domain.User;
 
 import com.space.service.InfoService;
+import com.space.service.UserService;
 import com.space.service.impl.InfoServiceImpl;
 import com.space.service.impl.UserServiceImpl;
 
@@ -13,6 +14,7 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.IOUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,16 +32,22 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/Info/*")
 public class InfoServlet extends BaseServlet {
+
+    @Autowired
+    UserService userService;
+    @Autowired
+    InfoService infoService;
     public void getInfo() throws IOException {
+           
         Integer id = (Integer) req.getSession().getAttribute("id");
         JSONObject ret = new JSONObject();
 
-        UserServiceImpl userService = new UserServiceImpl();
+
         User user = userService.selectById(id);
         ret.put("imageUrl",user.getAvatar());
         ret.put("name",user.getUsername());
 
-        InfoService infoService = new InfoServiceImpl();
+
         Info info = infoService.selectById(id);
         ret.put("region",info.getGender());
         ret.put("date",info.getBirthday());
@@ -57,6 +65,7 @@ public class InfoServlet extends BaseServlet {
 
 
     public void modifyInfo() throws IOException {
+           
         Integer id=(Integer)req.getSession().getAttribute("id");
         DiskFileItemFactory diskFileItemFactory = new DiskFileItemFactory();
         ServletFileUpload fileUpload = new ServletFileUpload(diskFileItemFactory);
@@ -79,7 +88,7 @@ public class InfoServlet extends BaseServlet {
                 FileOutputStream fileOutputStream = new FileOutputStream(path);
                 IOUtils.copy(inputStream,fileOutputStream);
 
-                UserServiceImpl userService = new UserServiceImpl();
+
                 userService.updateAvatar(id,"/photos/"+newName);
             }
             else {
@@ -88,9 +97,9 @@ public class InfoServlet extends BaseServlet {
                 map.put(fieldName,value);
             }
         }
-        UserServiceImpl userService = new UserServiceImpl();
+
         userService.updateUsername(id,map.get("name"));
-        InfoServiceImpl infoService = new InfoServiceImpl();
+
         Info info = new Info();
         info.setId(id);
         info.setBirthday(map.get("date"));

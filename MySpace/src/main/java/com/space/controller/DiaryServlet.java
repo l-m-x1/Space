@@ -8,6 +8,7 @@ import com.space.service.DiaryService;
 import com.space.service.impl.DiaryServiceImpl;
 
 import org.apache.commons.io.IOUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,8 +27,11 @@ import java.util.List;
 public class DiaryServlet extends BaseServlet {
 
 
+    @Autowired
+    DiaryService diaryService;
+
     public void setLog(){
-        init();
+          
 
         Integer uid=(Integer)req.getSession().getAttribute("id");
         Diary diary = new Diary();
@@ -40,20 +44,20 @@ public class DiaryServlet extends BaseServlet {
         JSONObject jsonObject1 = JSON.parseObject(jsonObject.getString("diary"));
         diary.setTitle(jsonObject1.getString("name"));
         diary.setContent(jsonObject1.getString("text"));
-        DiaryService diaryService=new DiaryServiceImpl();
+
         diaryService.insert(diary);
     }
 
 
     public void deleteLogs() throws IOException {
-        init();
+          
         Integer id= Integer.valueOf(IOUtils.toString(req.getInputStream()));
-        DiaryServiceImpl diaryService = new DiaryServiceImpl();
+
         diaryService.delete(id);
     }
 
     public void modifyLogs() throws IOException {
-        init();
+          
         String contentType = req.getContentType();
         System.out.println(contentType);
         String s = IOUtils.toString(req.getInputStream());
@@ -64,11 +68,11 @@ public class DiaryServlet extends BaseServlet {
         diary.setTitle(jsonObject.getString("name") );
         diary.setContent(jsonObject.getString("text") );
         diary.setId(id);
-        DiaryServiceImpl diaryService = new DiaryServiceImpl();
+
         diaryService.update(diary);
     }
     public void viewLogs() throws IOException {
-        init();
+          
 
         class ret{
             public Integer id;
@@ -100,7 +104,7 @@ public class DiaryServlet extends BaseServlet {
             }
         }
         Integer uid= (Integer) req.getSession().getAttribute("id");
-        DiaryService diaryService = new DiaryServiceImpl();
+
         List<Diary> diaries = diaryService.selectByUid(uid);
         ArrayList<ret> rets = new ArrayList<>();
         for(Diary diary:diaries){

@@ -6,9 +6,10 @@ import com.space.domain.MsgBoard;
 import com.space.service.MsgBoardService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class MsgBoardServiceImpl implements MsgBoardService {
 
     @Autowired

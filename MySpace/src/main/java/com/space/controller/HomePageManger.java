@@ -11,11 +11,13 @@ import com.space.domain.User;
 
 import com.space.service.AddFriService;
 import com.space.service.FriendsService;
+import com.space.service.StyleService;
 import com.space.service.UserService;
 import com.space.service.impl.AddFriServiceImpl;
 import com.space.service.impl.FriendsServiceImpl;
 import com.space.service.impl.StyleServiceImpl;
 import com.space.service.impl.UserServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,8 +33,19 @@ import java.util.List;
 @RequestMapping("/HomePage/*")
 public class HomePageManger extends BaseServlet {
 
+    @Autowired
+    FriendsService friendsService;
+
+    @Autowired
+    UserService userService;
+    @Autowired
+    AddFriService addFriService;
+
+    @Autowired
+    StyleService styleService;
 
     public void logout() {
+           
         HttpSession session = req.getSession();
         session.removeAttribute("id");
         session.removeAttribute("name");
@@ -42,9 +55,10 @@ public class HomePageManger extends BaseServlet {
 
 
     public void getUserInfo() throws IOException {
+           
         JSONObject ret =new JSONObject();
         Integer uid= (Integer) req.getSession().getAttribute("id");
-        UserService userService=new  UserServiceImpl();
+
         User user = userService.selectById(uid);
         ret.put("userName",user.getUsername());
         ret.put("userAvatar",user.getAvatar());
@@ -54,11 +68,12 @@ public class HomePageManger extends BaseServlet {
     }
 
     public void addFriend(){
+           
         Integer uid = (Integer) req.getSession().getAttribute("id");
         Integer fid = jsonObject.getInteger("id");
 
 
-        AddFriService addFriService = new AddFriServiceImpl();
+
         AddFriMsg addFriMsg = new AddFriMsg();
         addFriMsg.setMsg_from(uid);
         addFriMsg.setMsg_to(fid);
@@ -66,14 +81,15 @@ public class HomePageManger extends BaseServlet {
     }
 
     public void accept(){
+           
         Integer uid = (Integer) req.getSession().getAttribute("id");
         Integer fid = jsonObject.getInteger("id");
-        AddFriServiceImpl addFriService = new AddFriServiceImpl();
+
         AddFriMsg addFriMsg = new AddFriMsg();
         addFriMsg.setMsg_to(uid);
         addFriMsg.setMsg_from(fid);
         addFriService.delete(addFriMsg);
-        FriendsService friendsService = new FriendsServiceImpl();
+
         Friends friends=new Friends();
         friends.setId(uid);
         friends.setFid(fid);
@@ -86,6 +102,8 @@ public class HomePageManger extends BaseServlet {
     }
 
     public void getAddFriMsg() throws IOException {
+
+           
 
         class ret{
             @JSONField(ordinal = 1)
@@ -120,10 +138,10 @@ public class HomePageManger extends BaseServlet {
             }
         }
         Integer uid = (Integer) req.getSession().getAttribute("id");
-        AddFriService addFriService = new AddFriServiceImpl();
+
         List<AddFriMsg> addFriMsgs = addFriService.selectByTo(uid);
         ArrayList<ret> froms = new ArrayList<>();
-        UserServiceImpl userService = new UserServiceImpl();
+
         for (AddFriMsg addFriMsg:addFriMsgs){
             ret ret = new ret();
             User user = userService.selectById(addFriMsg.getMsg_from());
@@ -138,6 +156,8 @@ public class HomePageManger extends BaseServlet {
     }
 
     public void selectFriend() throws IOException {
+
+           
         class ret{
             public String avatar;
             public Integer id;
@@ -167,7 +187,7 @@ public class HomePageManger extends BaseServlet {
                 this.name = name;
             }
         }
-        UserServiceImpl userService = new UserServiceImpl();
+
         User user = userService.selectById(jsonObject.getInteger("id"));
         ret ret = new ret();
         ret.avatar=user.getAvatar();
@@ -179,9 +199,11 @@ public class HomePageManger extends BaseServlet {
 
 
     public void refuse(){
+
+           
         Integer uid = (Integer) req.getSession().getAttribute("id");
         Integer fid = jsonObject.getInteger("id");
-        AddFriServiceImpl addFriService = new AddFriServiceImpl();
+
         AddFriMsg addFriMsg = new AddFriMsg();
         addFriMsg.setMsg_to(uid);
         addFriMsg.setMsg_from(fid);
@@ -190,15 +212,17 @@ public class HomePageManger extends BaseServlet {
 
 
     public void getFriendDecoration() throws IOException {
+           
         Integer fid = jsonObject.getInteger("id");
         System.out.println(fid);
         getDecoration(fid);
 
     }
     public void getDecoration(int uid) throws IOException {
+           
 
         // Integer uid=213141521;
-        Style style = new StyleServiceImpl().selectByUid(uid);
+        Style style = styleService.selectByUid(uid);
 
         if(style==null){
             resp.getWriter().write("no decoration");
@@ -209,12 +233,14 @@ public class HomePageManger extends BaseServlet {
     }
 
     public void changeMyDecoration(){
+           
         HttpSession session=req.getSession();
         Integer uid = (Integer) session.getAttribute("id");
         changeDecoration(uid);
     }
 
     public void changeFriendDecoration() throws IOException {
+           
         Integer fid = jsonObject.getInteger("id");
         changeDecoration(fid);
 
@@ -222,12 +248,15 @@ public class HomePageManger extends BaseServlet {
 
     public void changeDecoration(int uid){
 
+           
+
         //Integer uid=213141521;
         String type=jsonObject.getString("color");
-        new StyleServiceImpl().updateType(uid,type);
+        styleService.updateType(uid,type);
     }
 
     public void getMyDecoration() throws IOException {
+           
         HttpSession session=req.getSession();
         Integer uid = (Integer) session.getAttribute("id");
         getDecoration(uid);
@@ -235,9 +264,10 @@ public class HomePageManger extends BaseServlet {
 
 
     public void deleteFriend(){
+           
         Integer id=(Integer) req.getSession().getAttribute("id");
         Integer id1 = jsonObject.getInteger("id");
-        FriendsServiceImpl friendsService = new FriendsServiceImpl();
+
         Friends friends = new Friends();
         friends.setId(id);
         friends.setFid(id1);

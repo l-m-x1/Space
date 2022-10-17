@@ -5,10 +5,13 @@ import com.alibaba.fastjson.JSON;
 import com.space.domain.Friends;
 import com.space.domain.Trends;
 import com.space.domain.User;
+import com.space.service.FriendsService;
 import com.space.service.TrendsService;
+import com.space.service.UserService;
 import com.space.service.impl.FriendsServiceImpl;
 import com.space.service.impl.TrendsServiceImpl;
 import com.space.service.impl.UserServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,6 +26,12 @@ import java.util.List;
 @RestController
 @RequestMapping( "/Trends/*")
 public class TrendsServlet extends BaseServlet {
+    @Autowired
+    TrendsService trendsService;
+    @Autowired
+    UserService userService;
+    @Autowired
+    FriendsService friendsService;
     class Ret{
         Integer id;
         String name;
@@ -62,9 +71,10 @@ public class TrendsServlet extends BaseServlet {
             return cheer;
         }
     }
-   TrendsService trendsService=new TrendsServiceImpl();
+
 
     public void add() {
+           
 
         HttpSession session=req.getSession();
         //session.setAttribute("id",2);
@@ -81,6 +91,7 @@ public class TrendsServlet extends BaseServlet {
     }
 
     public void showMyself() throws IOException {
+           
         HttpSession session=req.getSession();
       //  session.setAttribute("id",2);
         Integer uid = (Integer) session.getAttribute("id");
@@ -88,12 +99,14 @@ public class TrendsServlet extends BaseServlet {
     }
 
     public void showFriend() throws IOException {
+           
         Integer fid =  jsonObject.getInteger("id");
         showAUser(fid);
     }
 
     public void showAUser(int uid) throws IOException {
 
+           
 
        //获取好友
        //Integer uid=jsonObject.getInteger("id");
@@ -108,7 +121,7 @@ public class TrendsServlet extends BaseServlet {
             ret.time=trend.getTime();
             ret.text=trend.getContent();
             ret.cheer=trend.getLikes();
-            User user = new UserServiceImpl().selectById(trend.getUid());
+            User user = userService.selectById(trend.getUid());
             ret.name=user.getUsername();
             ret.modify="false";
             ret.photo=user.getAvatar();
@@ -120,6 +133,7 @@ public class TrendsServlet extends BaseServlet {
     }
 
     public void show() throws IOException {
+           
         //int[] uids = new int[0];
         HttpSession session=req.getSession();
       //  session.setAttribute("id",2);
@@ -127,7 +141,7 @@ public class TrendsServlet extends BaseServlet {
         List<Integer> uids1=new ArrayList<>();
         uids1.add(uid);
 
-        FriendsServiceImpl friendsService = new FriendsServiceImpl();
+
         List<Friends> friends = friendsService.selectById(uid);
         for (Friends friend:friends) {
             uids1.add(friend.getFid());
@@ -145,7 +159,7 @@ public class TrendsServlet extends BaseServlet {
             ret.time=trend.getTime();
             ret.text=trend.getContent();
             ret.cheer=trend.getLikes();
-            User user = new UserServiceImpl().selectById(trend.getUid());
+            User user = userService.selectById(trend.getUid());
             ret.name=user.getUsername();
             ret.photo=user.getAvatar();
             ret.modify="false";
@@ -158,18 +172,21 @@ public class TrendsServlet extends BaseServlet {
     }
 
     public void deleteById(){
+           
         int id = Integer.parseInt(jsonObject.getString("id"));
         trendsService.deleteById(id);
     }
 
 
     public void updateLikes(){
+           
         int id=Integer.parseInt(jsonObject.getString("id"));
         int likes=jsonObject.getInteger("cheer");
         trendsService.updateLikes(id,likes);
     }
 
     public void updateContent(){
+           
         int id=Integer.parseInt(jsonObject.getString("id"));
         String content=jsonObject.getString("text");
         trendsService.updateContent(id,content);

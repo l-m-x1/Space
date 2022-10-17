@@ -6,10 +6,12 @@ import com.alibaba.fastjson.annotation.JSONField;
 import com.space.domain.Friends;
 
 import com.space.domain.User;
+import com.space.service.FriendsService;
 import com.space.service.UserService;
 import com.space.service.impl.FriendsServiceImpl;
 import com.space.service.impl.UserServiceImpl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,10 +24,13 @@ import java.util.List;
 @RequestMapping("/Access/*")
 public class AccessServlet extends BaseServlet {
 
-
+    @Autowired
+    FriendsService friendsService;
+    @Autowired
+    UserService userService;
     public void setAccess(){
-        init();
-        FriendsServiceImpl friendsService = new FriendsServiceImpl();
+
+
 
         Integer uid=(Integer) req.getSession().getAttribute("id");
         Integer fid=(Integer) jsonObject.getInteger("account");
@@ -47,7 +52,7 @@ public class AccessServlet extends BaseServlet {
 
 
     public void getAllAccess() throws IOException {
-        init();
+
         Integer id=(Integer) req.getSession().getAttribute("id");
         class ret{
 
@@ -84,10 +89,10 @@ public class AccessServlet extends BaseServlet {
             }
         }
 
-        FriendsServiceImpl friendsService = new FriendsServiceImpl();
+
         List<Friends> friends = friendsService.selectById(id);
 
-        UserServiceImpl userService = new UserServiceImpl();
+
         List<ret> retList=new ArrayList<>();
         for(Friends friend:friends){
             ret ret = new ret();
@@ -103,9 +108,9 @@ public class AccessServlet extends BaseServlet {
 
 
     public void getPermission() throws IOException {
-        init();
+
         Integer id=(Integer) req.getSession().getAttribute("id");
-        FriendsServiceImpl friendsService = new FriendsServiceImpl();
+
         Friends friends = new Friends();
         friends.setFid(id);
         friends.setId(jsonObject.getInteger("id"));
@@ -122,11 +127,11 @@ public class AccessServlet extends BaseServlet {
 
 
     public void getUserInfo() throws IOException {
-        init();
+
         JSONObject ret =new JSONObject();
 //        Integer uid= (Integer) req.getSession().getAttribute("id");
         Integer uid=jsonObject.getInteger("id");
-        UserService userService=new  UserServiceImpl();
+
         User user = userService.selectById(uid);
         ret.put("userName",user.getUsername());
         ret.put("userAvatar",user.getAvatar());

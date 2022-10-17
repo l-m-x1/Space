@@ -7,8 +7,10 @@ import com.alibaba.fastjson.annotation.JSONField;
 import com.space.domain.Friends;
 import com.space.domain.User;
 import com.space.service.FriendsService;
+import com.space.service.UserService;
 import com.space.service.impl.FriendsServiceImpl;
 import com.space.service.impl.UserServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,8 +24,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/Friend/*")
 public class FriendList extends BaseServlet {
+    @Autowired
+    FriendsService friendsService;
+    @Autowired
+    UserService userService;
     public void getFriendList() throws IOException {
-        init();
+           
         JSONObject ret =new JSONObject();
         class ret{
             @JSONField(ordinal = 2)
@@ -59,9 +65,9 @@ public class FriendList extends BaseServlet {
         }
         List<ret> retList=new ArrayList<>();
         Integer uid= (Integer) req.getSession().getAttribute("id");
-        FriendsService friendsService = new FriendsServiceImpl();
+
         List<Friends> friends = friendsService.selectById(uid);
-        UserServiceImpl userService = new UserServiceImpl();
+
         for (Friends friend : friends) {
             ret tmp = new ret();
             Integer fid = friend.getFid();

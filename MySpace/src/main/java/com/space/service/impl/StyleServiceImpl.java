@@ -6,9 +6,10 @@ import com.space.domain.Style;
 import com.space.service.StyleService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class StyleServiceImpl implements StyleService {
     @Autowired
     StyleDao styleDao;

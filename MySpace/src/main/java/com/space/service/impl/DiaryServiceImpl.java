@@ -6,9 +6,10 @@ import com.space.domain.Diary;
 import com.space.service.DiaryService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class DiaryServiceImpl implements DiaryService {
     @Autowired
     DiaryDao diaryDao;

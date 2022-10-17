@@ -4,10 +4,12 @@ import com.space.dao.FriendsDao;
 import com.space.domain.Friends;
 
 import com.space.service.FriendsService;
+import org.springframework.stereotype.Service;
 
 
 import java.util.List;
 
+@Service
 public class FriendsServiceImpl implements FriendsService {
 
 

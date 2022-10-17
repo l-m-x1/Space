@@ -8,6 +8,7 @@ import com.space.service.MsgBoardService;
 import com.space.service.UserService;
 import com.space.service.impl.MsgBoardServiceImpl;
 import com.space.service.impl.UserServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,10 +25,16 @@ import java.util.List;
 @RequestMapping("/MsgBoard/*")
 public class MsgBoardServlet extends BaseServlet {
 
-    MsgBoardService msgBoardService=new MsgBoardServiceImpl();
 
 
+
+    @Autowired
+    MsgBoardService msgBoardService;
+
+    @Autowired
+    UserService userService;
     public void addMyself(){
+           
         HttpSession session=req.getSession();
        // session.setAttribute("id",30);
         Integer uid =(Integer) session.getAttribute("id");
@@ -35,6 +42,7 @@ public class MsgBoardServlet extends BaseServlet {
     }
 
     public void addFriend(){
+           
         HttpSession session=req.getSession();
        // session.setAttribute("id",30);
         Integer wrid =(Integer) session.getAttribute("id");
@@ -44,6 +52,7 @@ public class MsgBoardServlet extends BaseServlet {
 
     //添加一条留言板数据
     public void add(int wrid,int uid){
+           
 
 
         MsgBoard msgBoard=new MsgBoard();
@@ -58,6 +67,7 @@ public class MsgBoardServlet extends BaseServlet {
     }
 
     public void showMyself() throws IOException {
+           
         HttpSession session=req.getSession();
         //session.setAttribute("id",30);
 
@@ -66,14 +76,16 @@ public class MsgBoardServlet extends BaseServlet {
         show(uid);
     }
     public void showFriend() throws IOException {
+           
         Integer fid=jsonObject.getInteger("id");
         //Integer fid=2;
         show(fid);
     }
     //展示该用户的相关留言板
     public void show(int uid) throws IOException {
+           
 
-        UserService userService=new UserServiceImpl();
+
 
         List<MsgBoard> boards = msgBoardService.selectByUid(uid);
         class Ret{
@@ -129,6 +141,7 @@ public class MsgBoardServlet extends BaseServlet {
 
     //删除单条留言板
     public void deleteById(){
+           
         int id = Integer.parseInt(jsonObject.getString("id"));
         msgBoardService.deleteById(id);
     }

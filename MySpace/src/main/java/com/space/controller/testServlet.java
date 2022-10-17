@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 public class testServlet extends BaseServlet{
 
 
-    @RequestMapping("/123/*")
+//    @RequestMapping("/*")
     public void hello(){
 
         System.out.println(req.getRequestURI());
