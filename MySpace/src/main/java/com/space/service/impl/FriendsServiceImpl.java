@@ -4,6 +4,7 @@ import com.space.dao.FriendsDao;
 import com.space.domain.Friends;
 
 import com.space.service.FriendsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
@@ -12,7 +13,7 @@ import java.util.List;
 @Service
 public class FriendsServiceImpl implements FriendsService {
 
-
+    @Autowired
     FriendsDao friendsDao;
     @Override
     public void insert(Friends friends) {

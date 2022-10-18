@@ -3,6 +3,7 @@ package com.space.dao;
 
 import com.space.domain.Photos;
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -20,6 +21,7 @@ public interface PhotosDao {
     Photos selectById(Integer id);
 
 
+    @Insert("insert into photos ( time, path, uid) values (#{time},#{path},#{uid})")
     void insert(Photos photos);
 
     @Delete("delete  from photos where id=#{id}")

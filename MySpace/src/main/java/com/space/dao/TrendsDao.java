@@ -17,6 +17,12 @@ public interface TrendsDao {
     @Select("select * from trends where uid=#{uid} order by id desc")
     List<Trends> selectByUid(Integer uid);
 
+    @Select("<script>" +
+            "select * from trends where uid in" +
+            "<foreach collection=\"uids\" item=\"uid\" separator=\",\" open=\"(\" close=\")\">" +
+            "#{uid}\n" +
+            "</foreach> order by id desc" +
+            "</script>")
     List<Trends> selectByUids(@Param("uids") int[] uids);
 
     @Insert("insert into trends(content,uid,time) values (#{content},#{uid},#{time})")

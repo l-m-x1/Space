@@ -3,9 +3,10 @@ package com.space.dao;
 
 import com.space.domain.User;
 import org.apache.ibatis.annotations.*;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+@Repository
 @Mapper
 public interface UserDao {
     @Select("select *from user")
@@ -17,7 +18,7 @@ public interface UserDao {
     @Select("select *from user where id=#{id}")
     User selectById(Integer id);
 
-
+    @Insert("insert into user (username,password) values ( #{username}, #{password})")
     void insert(User user);
 
     @Delete("delete from user where id=#{id} ;")
