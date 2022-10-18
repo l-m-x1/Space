@@ -6,13 +6,10 @@ import com.space.domain.MsgBoard;
 import com.space.domain.User;
 import com.space.service.MsgBoardService;
 import com.space.service.UserService;
-import com.space.service.impl.MsgBoardServiceImpl;
-import com.space.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -23,7 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/MsgBoard/*")
-public class MsgBoardServlet extends BaseServlet {
+public class MsgBoardController extends BaseController {
 
 
 

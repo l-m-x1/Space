@@ -6,8 +6,6 @@ import com.space.domain.User;
 
 import com.space.service.InfoService;
 import com.space.service.UserService;
-import com.space.service.impl.InfoServiceImpl;
-import com.space.service.impl.UserServiceImpl;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
@@ -18,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.annotation.WebServlet;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,7 +28,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/Info/*")
-public class InfoServlet extends BaseServlet {
+public class InfoController extends BaseController {
 
     @Autowired
     UserService userService;

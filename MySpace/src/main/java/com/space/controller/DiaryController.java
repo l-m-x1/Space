@@ -5,15 +5,12 @@ import com.alibaba.fastjson.JSONObject;
 import com.space.domain.Diary;
 
 import com.space.service.DiaryService;
-import com.space.service.impl.DiaryServiceImpl;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -24,7 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/Diary/*")
-public class DiaryServlet extends BaseServlet {
+public class DiaryController extends BaseController {
 
 
     @Autowired

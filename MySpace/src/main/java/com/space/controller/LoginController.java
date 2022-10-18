@@ -3,20 +3,18 @@ package com.space.controller;
 import com.space.domain.User;
 
 import com.space.service.UserService;
-import com.space.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 
 @RestController
 @RequestMapping("/Login")
-public class LoginServlet extends BaseServlet {
+public class LoginController extends BaseController {
 
     @Autowired
     UserService userService;

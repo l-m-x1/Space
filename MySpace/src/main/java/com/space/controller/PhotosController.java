@@ -7,8 +7,6 @@ import com.space.domain.User;
 
 import com.space.service.PhotosService;
 import com.space.service.UserService;
-import com.space.service.impl.PhotosServiceImpl;
-import com.space.service.impl.UserServiceImpl;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
@@ -19,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.annotation.WebServlet;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -33,7 +30,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/Photos/*")
-public class PhotosServlet extends BaseServlet {
+public class PhotosController extends BaseController {
 
 
     @Autowired

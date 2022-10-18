@@ -8,27 +8,26 @@ import com.space.domain.Friends;
 import com.space.domain.User;
 import com.space.service.FriendsService;
 import com.space.service.UserService;
-import com.space.service.impl.FriendsServiceImpl;
-import com.space.service.impl.UserServiceImpl;
 
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/Access/*")
-public class AccessServlet extends BaseServlet {
+public class AccessController extends BaseController {
 
     @Autowired
     FriendsService friendsService;
     @Autowired
     UserService userService;
     public void setAccess(){
+
 
 
 
